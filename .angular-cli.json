@@ -7,6 +7,11 @@
     {
       "root": "src",
       "outDir": "dist",
+      "stylePreprocessorOptions": {
+        "includePaths": [
+          "../src/scss/"
+        ]
+      },
       "assets": [
         "assets",
         "favicon.ico"
