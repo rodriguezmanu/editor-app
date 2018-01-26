@@ -14,7 +14,16 @@ export class AppGalleryComponent implements OnInit {
 
   ngOnInit(): void {
     this.styles = this.styleService.getLocalStorage();
-    console.log(this.styles);
   }
 
+  /**
+   * Delete div style
+   *
+   * @param {any} index
+   * @memberof AppGalleryComponent
+   */
+  delete(index) {
+    this.styles.splice(index, 1);
+    this.styleService.save(this.styles);
+  }
 }

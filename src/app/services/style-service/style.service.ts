@@ -58,7 +58,6 @@ export class StyleService {
    * @memberof StyleService
    */
   setLocalStorage(): void {
-
     const stylesCollection = this.getLocalStorage();
 
     stylesCollection.push(this.style);
@@ -68,10 +67,20 @@ export class StyleService {
   /**
    * Get localStorage styles
    *
-   * @returns {Object}
+   * @returns {Array}
    * @memberof StyleService
    */
   getLocalStorage() {
     return localStorage.styles ? JSON.parse(localStorage.styles) : [];
+  }
+
+  /**
+   * Save style in localStorage
+   *
+   * @param {StyleValues} styles
+   * @memberof StyleService
+   */
+  save(styles: StyleValues): void {
+    localStorage.setItem('styles', JSON.stringify(styles));
   }
 }
