@@ -1,6 +1,6 @@
-import { StyleValues } from './../models/style';
+import { StyleValues } from './../../models/style';
 import { Component, OnInit } from '@angular/core';
-import { StyleService } from '../services/style-service/style.service';
+import { StyleService } from '../../services/style-service/style.service';
 
 @Component({
   selector: 'app-app-gallery',
@@ -22,7 +22,7 @@ export class AppGalleryComponent implements OnInit {
    * @param {any} index
    * @memberof AppGalleryComponent
    */
-  delete(index) {
+  delete(index): void {
     this.styles.splice(index, 1);
     this.styleService.save(this.styles);
   }

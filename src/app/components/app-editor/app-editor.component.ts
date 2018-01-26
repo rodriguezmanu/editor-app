@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { StyleService } from '../services/style-service/style.service';
+import { StyleService } from '../../services/style-service/style.service';
 
 @Component({
   selector: 'app-app-editor',
