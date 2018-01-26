@@ -8,7 +8,7 @@
   <mat-card-content>
     <!-- Value -->
     <mat-form-field>
-      <input type="text" matInput [(colorPicker)]="backgroundColor" [value]="backgroundColor" [(ngModel)]="backgroundColor" (keypress)="keyPress($event)"
+      <input type="text" matInput [(colorPicker)]="backgroundColor" [value]="backgroundColor" [(ngModel)]="backgroundColor" (keypress)="keyPressColor($event)"
   placeholder="Color">
     </mat-form-field>
   </mat-card-content>
@@ -24,12 +24,8 @@
   <mat-card-content>
     <!-- Value -->
     <mat-form-field>
-      <input matInput type="number" placeholder="Size" [(ngModel)]="size">
+      <input matInput type="number" placeholder="Size" [(ngModel)]="size" (keypress)="keyPressDigit($event)">
     </mat-form-field>
-
-    <!-- Slider -->
-    <mat-slider [max]="100" [min]="0" [step]="1" [(ngModel)]="size">
-    </mat-slider>
   </mat-card-content>
 </mat-card>
 
@@ -43,7 +39,7 @@
   <mat-card-content>
     <!-- Value -->
     <mat-form-field>
-      <input matInput type="number" placeholder="Border  radius" [(ngModel)]="borderRadius">
+      <input matInput type="number" disabled placeholder="Border radius" [(ngModel)]="borderRadius">
     </mat-form-field>
 
     <!-- Slider -->
@@ -54,6 +50,6 @@
 
 <!-- Actions Card -->
 <mat-card class="card-actions">
-  <button mat-button (click)="saveStyles()">Save</button>
-  <button mat-button (click)="clearStyles()">Clear</button>
+  <button mat-raised-button color="primary" [disabled]="!(size && backgroundColor)" (click)="saveStyles()">Save</button>
+  <button mat-raised-button color="warn" (click)="clearStyles()">Clear</button>
 </mat-card>

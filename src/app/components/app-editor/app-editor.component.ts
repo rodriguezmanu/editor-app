@@ -48,12 +48,29 @@ export class AppEditorComponent {
    * @param {KeyboardEvent} event
    * @memberof AppEditorComponent
    */
-  keyPress(event: KeyboardEvent): void {
+  keyPressColor(event: KeyboardEvent): void {
     // Hex pattern
     const pattern = /[#a-fA-F\d]+/;
     const inputChar = String.fromCharCode(event.charCode);
 
     if (!pattern.test(inputChar) || this.backgroundColor.length > 6) {
+      event.preventDefault();
+    }
+  }
+
+  /**
+   * Handler user can only insert positive digits inputs
+   *
+   * @param {KeyboardEvent} event
+   * @memberof AppEditorComponent
+   */
+  keyPressDigit(event: KeyboardEvent): void {
+    // digits pattern
+    const pattern = /^\d*[0-9]\d*$/;
+    const inputChar = String.fromCharCode(event.charCode);
+    const isValid = (this.size) ? String(this.size).length >= 3 : false;
+
+    if (!pattern.test(inputChar) || isValid ) {
       event.preventDefault();
     }
   }
