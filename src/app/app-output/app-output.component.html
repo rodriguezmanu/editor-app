@@ -7,6 +7,11 @@
   </mat-card-header>
   <!-- Style Content-->
   <mat-card-content fxLayout="row" fxLayoutAlign="center">
-    <div [ngStyle]="style"></div>
+    <!-- Style -->
+    <div *ngIf="style" [ngStyle]="style"></div>
+    <!-- No styles -->
+    <h4 *ngIf="!style">
+      No styles registered
+    </h4>
   </mat-card-content>
 </mat-card>

@@ -1,18 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { StyleService } from '../services/style-service/style.service';
 
 @Component({
   selector: 'app-app-editor',
   templateUrl: './app-editor.component.html',
   styleUrls: ['./app-editor.component.scss']
 })
-export class AppEditorComponent implements OnInit {
-  color = '';
+export class AppEditorComponent {
+  backgroundColor = '';
   size;
-  border;
+  borderRadius;
 
-  constructor() { }
-
-  ngOnInit() { }
+  constructor(private styleService: StyleService) {}
 
   /**
    * Clear styles inputs
@@ -20,9 +19,9 @@ export class AppEditorComponent implements OnInit {
    * @memberof AppEditorComponent
    */
   clearStyles(): void {
-    this.color = '';
+    this.backgroundColor = '';
     this.size = 0;
-    this.border = 0;
+    this.borderRadius = 0;
   }
 
   /**
@@ -31,7 +30,16 @@ export class AppEditorComponent implements OnInit {
    * @memberof AppEditorComponent
    */
   saveStyles(): void {
-    console.log(this.color, this.size, this.border);
+    const param = {
+      backgroundColor: this.backgroundColor,
+      size: this.size,
+      borderRadius: this.borderRadius
+    };
+    // save style in serviceStyle
+    this.styleService.saveStyle(param);
+
+    // clear styles form
+    this.clearStyles();
   }
 
   /**
@@ -45,7 +53,7 @@ export class AppEditorComponent implements OnInit {
     const pattern = /[#a-fA-F\d]+/;
     const inputChar = String.fromCharCode(event.charCode);
 
-    if (!pattern.test(inputChar) || this.color.length > 6) {
+    if (!pattern.test(inputChar) || this.backgroundColor.length > 6) {
       event.preventDefault();
     }
   }

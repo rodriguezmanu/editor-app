@@ -12,6 +12,7 @@ import { AppRoutingModule } from './/app-routing.module';
 import { AppOutputComponent } from './app-output/app-output.component';
 import { AppEditorComponent } from './app-editor/app-editor.component';
 import { AppGalleryComponent } from './app-gallery/app-gallery.component';
+import { StyleService } from './services/style-service/style.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { AppGalleryComponent } from './app-gallery/app-gallery.component';
     ColorPickerModule,
     FormsModule
   ],
-  providers: [],
+  providers: [StyleService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

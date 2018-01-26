@@ -8,7 +8,7 @@
   <mat-card-content>
     <!-- Value -->
     <mat-form-field>
-      <input type="text" matInput [(colorPicker)]="color" [value]="color" [(ngModel)]="color" (keypress)="keyPress($event)"
+      <input type="text" matInput [(colorPicker)]="backgroundColor" [value]="backgroundColor" [(ngModel)]="backgroundColor" (keypress)="keyPress($event)"
   placeholder="Color">
     </mat-form-field>
   </mat-card-content>
@@ -43,11 +43,11 @@
   <mat-card-content>
     <!-- Value -->
     <mat-form-field>
-      <input matInput type="number" placeholder="Border  radius" [(ngModel)]="border">
+      <input matInput type="number" placeholder="Border  radius" [(ngModel)]="borderRadius">
     </mat-form-field>
 
     <!-- Slider -->
-    <mat-slider [max]="100" [min]="0" [step]="1" [(ngModel)]="border">
+    <mat-slider [max]="100" [min]="0" [step]="1" [(ngModel)]="borderRadius">
     </mat-slider>
   </mat-card-content>
 </mat-card>

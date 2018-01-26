@@ -1,4 +1,6 @@
+import { StyleValues } from './../models/style';
 import { Component, OnInit } from '@angular/core';
+import { StyleService } from '../services/style-service/style.service';
 
 @Component({
   selector: 'app-app-gallery',
@@ -6,10 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app-gallery.component.scss']
 })
 export class AppGalleryComponent implements OnInit {
+  styles;
 
-  constructor() { }
+  constructor(private styleService: StyleService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.styles = this.styleService.getLocalStorage();
+    console.log(this.styles);
   }
 
 }

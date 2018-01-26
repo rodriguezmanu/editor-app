@@ -1,3 +1,17 @@
-<p>
-  app-gallery works!
-</p>
+<!-- Gallery -->
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <h2>Gallery</h2>
+    </mat-card-title>
+  </mat-card-header>
+  <!-- Style Content-->
+  <mat-card-content fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px">
+    <!-- Style -->
+    <div *ngFor="let item of styles" [ngStyle]="item"></div>
+    <!-- No styles -->
+    <h4 *ngIf="!styles.length">
+      No styles registered
+    </h4>
+  </mat-card-content>
+</mat-card>
