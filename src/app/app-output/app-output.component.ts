@@ -6,7 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app-output.component.scss']
 })
 export class AppOutputComponent implements OnInit {
-
+  style = {
+    'background-color': 'red',
+    'border-radius': '10px',
+    'width': '100px',
+    'height': '100px'
+  };
   constructor() { }
 
   ngOnInit() {
