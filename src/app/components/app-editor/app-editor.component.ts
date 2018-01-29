@@ -1,5 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { StyleService } from '../../services/style-service/style.service';
+import {
+  FormGroup,
+  FormBuilder,
+  Validators,
+  FormGroupDirective
+} from '@angular/forms';
 
 @Component({
   selector: 'app-app-editor',
@@ -7,11 +13,31 @@ import { StyleService } from '../../services/style-service/style.service';
   styleUrls: ['./app-editor.component.scss']
 })
 export class AppEditorComponent {
-  backgroundColor = '';
-  size;
-  borderRadius;
+  @ViewChild(FormGroupDirective) myForm;
+  editorForm: FormGroup;
 
-  constructor(private styleService: StyleService) {}
+  constructor(
+    private styleService: StyleService,
+    private formBuilder: FormBuilder
+  ) {
+    this.editorForm = formBuilder.group({
+      backgroundColor: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.pattern(/^#[0-9a-fA-F]{6}$/)
+        ])
+      ],
+      size: [
+        '',
+        Validators.compose([Validators.required, Validators.maxLength(3)])
+      ],
+      borderRadius: [{
+        value: 0,
+        disabled: true
+      }]
+    });
+  }
 
   /**
    * Clear styles inputs
@@ -19,9 +45,15 @@ export class AppEditorComponent {
    * @memberof AppEditorComponent
    */
   clearStyles(): void {
-    this.backgroundColor = '';
-    this.size = 0;
-    this.borderRadius = 0;
+    if (this.myForm) {
+      // reset form
+      this.myForm.resetForm();
+
+      // reset slider
+      this.editorForm.patchValue({
+        borderRadius: 0
+      });
+    }
   }
 
   /**
@@ -31,31 +63,15 @@ export class AppEditorComponent {
    */
   saveStyles(): void {
     const param = {
-      backgroundColor: this.backgroundColor,
-      size: this.size,
-      borderRadius: this.borderRadius
+      backgroundColor: this.editorForm.get('backgroundColor').value,
+      size: this.editorForm.get('size').value,
+      borderRadius: this.editorForm.get('borderRadius').value
     };
     // save style in serviceStyle
     this.styleService.saveStyle(param);
 
     // clear styles form
     this.clearStyles();
-  }
-
-  /**
-   * Handler user can only insert hexa inputs
-   *
-   * @param {KeyboardEvent} event
-   * @memberof AppEditorComponent
-   */
-  keyPressColor(event: KeyboardEvent): void {
-    // Hex pattern
-    const pattern = /[#a-fA-F\d]+/;
-    const inputChar = String.fromCharCode(event.charCode);
-
-    if (!pattern.test(inputChar) || this.backgroundColor.length > 6) {
-      event.preventDefault();
-    }
   }
 
   /**
@@ -68,10 +84,24 @@ export class AppEditorComponent {
     // digits pattern
     const pattern = /^\d*[0-9]\d*$/;
     const inputChar = String.fromCharCode(event.charCode);
-    const isValid = (this.size) ? String(this.size).length >= 3 : false;
+    const isValid = this.editorForm.get('size').value
+      ? String(this.editorForm.get('size').value).length >= 3
+      : false;
 
-    if (!pattern.test(inputChar) || isValid ) {
+    if (!pattern.test(inputChar) || isValid) {
       event.preventDefault();
     }
+  }
+
+  /**
+   * On changle slider border radius
+   *
+   * @param {MatSliderChange} event
+   * @memberof AppEditorComponent
+   */
+  changeSliderBorderRadius(event) {
+    this.editorForm.patchValue({
+      borderRadius: event.value
+    });
   }
 }

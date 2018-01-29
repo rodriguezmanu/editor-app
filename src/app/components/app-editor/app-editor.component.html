@@ -1,55 +1,55 @@
-<!-- Color picker card -->
-<mat-card class="card-color-picker">
-  <mat-card-header>
-    <mat-card-title>
-      <h2>Color</h2>
-    </mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <!-- Value -->
-    <mat-form-field>
-      <input type="text" matInput [(colorPicker)]="backgroundColor" [value]="backgroundColor" [(ngModel)]="backgroundColor" (keypress)="keyPressColor($event)"
-  placeholder="Color">
-    </mat-form-field>
-  </mat-card-content>
-</mat-card>
+<form [formGroup]="editorForm" (ngSubmit)="saveStyles()">
+  <!-- Color picker card -->
+  <mat-card class="card-color-picker">
+    <mat-card-header>
+      <mat-card-title>
+        <h2>Color</h2>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <!-- Value -->
+      <mat-form-field>
+        <input matInput [(colorPicker)]="editorForm.get('backgroundColor').value" [value]="editorForm.get('backgroundColor').value" (colorPickerChange)="editorForm.get('backgroundColor').setValue($event)" formControlName="backgroundColor" placeholder="Color" cpPosition="bottom">
+      </mat-form-field>
+    </mat-card-content>
+  </mat-card>
 
-<!-- Size Card -->
-<mat-card class="card-size">
-  <mat-card-header>
-    <mat-card-title>
-      <h2>Size</h2>
-    </mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <!-- Value -->
-    <mat-form-field>
-      <input matInput type="number" placeholder="Size" [(ngModel)]="size" (keypress)="keyPressDigit($event)">
-    </mat-form-field>
-  </mat-card-content>
-</mat-card>
+  <!-- Size Card -->
+  <mat-card class="card-size">
+    <mat-card-header>
+      <mat-card-title>
+        <h2>Size</h2>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <!-- Value -->
+      <mat-form-field>
+        <input matInput type="number" placeholder="Size" formControlName="size" (keypress)="keyPressDigit($event)">
+      </mat-form-field>
+    </mat-card-content>
+  </mat-card>
 
-<!-- Border radius Card -->
-<mat-card class="card-border-radius">
-  <mat-card-header>
-    <mat-card-title>
-      <h2>Border radius</h2>
-    </mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <!-- Value -->
-    <mat-form-field>
-      <input matInput type="number" disabled placeholder="Border radius" [(ngModel)]="borderRadius">
-    </mat-form-field>
+  <!-- Border radius Card -->
+  <mat-card class="card-border-radius">
+    <mat-card-header>
+      <mat-card-title>
+        <h2>Border radius</h2>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <!-- Value -->
+      <mat-form-field>
+        <input matInput placeholder="Border radius" formControlName="borderRadius">
+      </mat-form-field>
+      <!-- Slider -->
+      <mat-slider [max]="100" [min]="0" [step]="1" (change)="changeSliderBorderRadius($event)" [value]="editorForm.get('borderRadius').value">
+      </mat-slider>
+    </mat-card-content>
+  </mat-card>
 
-    <!-- Slider -->
-    <mat-slider [max]="100" [min]="0" [step]="1" [(ngModel)]="borderRadius">
-    </mat-slider>
-  </mat-card-content>
-</mat-card>
-
-<!-- Actions Card -->
-<mat-card class="card-actions">
-  <button mat-raised-button color="primary" [disabled]="!(size && backgroundColor)" (click)="saveStyles()">Save</button>
-  <button mat-raised-button color="warn" (click)="clearStyles()">Clear</button>
-</mat-card>
+  <!-- Actions Card -->
+  <mat-card class="card-actions">
+    <button mat-raised-button color="primary" type="submit" [disabled]="editorForm.invalid">Save</button>
+    <button mat-raised-button type="reset" color="warn" (click)="clearStyles()">Clear</button>
+  </mat-card>
+</form>

@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppMaterialModule } from './modules/app-material/app-material.module';
 
@@ -27,7 +28,8 @@ import { StyleService } from './services/style-service/style.service';
     FlexLayoutModule,
     AppRoutingModule,
     ColorPickerModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [StyleService],
   bootstrap: [AppComponent]
